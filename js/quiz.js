@@ -495,6 +495,8 @@
         btn.querySelector('.answer-marker').style.background = 'var(--indigo)';
         btn.querySelector('.answer-marker').style.borderColor = 'var(--indigo)';
         btn.querySelector('.answer-marker').style.color = '#fff';
+        const nb = document.getElementById('nextBtn');
+        if (nb) { nb.disabled = false; nb.style.opacity = '1'; nb.style.pointerEvents = 'auto'; }
         // Auto-advance after 400ms
         setTimeout(() => advanceQuestion(), 380);
       });
@@ -508,19 +510,24 @@
       prevBtn.onclick = () => { if (currentQ > 0) { currentQ--; renderQuestion(currentQ); } };
     }
     if (nextBtn) {
+      const hasAnswer = answers[q.id] !== undefined;
       if (index < QUESTIONS.length - 1) {
         nextBtn.textContent = 'Next →';
         nextBtn.onclick = () => {
           if (answers[q.id] !== undefined) advanceQuestion();
         };
-        nextBtn.disabled = answers[q.id] === undefined;
       } else {
         nextBtn.textContent = 'See my results';
         nextBtn.onclick = () => {
           if (answers[q.id] !== undefined) showResults();
         };
-        nextBtn.disabled = answers[q.id] === undefined;
       }
+      // Only show Next as a clickable button once an answer exists
+      // (answering auto-advances anyway — Next is mainly for returning
+      // to a previously-answered question via Back, then moving forward again)
+      nextBtn.disabled = !hasAnswer;
+      nextBtn.style.opacity = hasAnswer ? '1' : '0';
+      nextBtn.style.pointerEvents = hasAnswer ? 'auto' : 'none';
     }
   }
 
