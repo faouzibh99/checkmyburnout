@@ -361,6 +361,7 @@ main, header, footer, section { position: relative; z-index: 1; }
   margin-top:28px; padding-top:20px; border-top:1px solid var(--border);
 }
 .quiz-nav .btn-outline { font-size:0.85rem; padding:10px 18px; }
+#nextBtn { transition: opacity 0.25s ease; }
 
 /* ==========================================================================
    RESULTS SECTION
@@ -511,7 +512,7 @@ main, header, footer, section { position: relative; z-index: 1; }
   font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em;
   margin:28px auto;
 }
-.adsense-slot.leaderboard { max-width:728px; min-height:90px; }
+.adsense-slot.leaderboard { width:100%; max-width:728px; min-height:90px; margin-left:auto; margin-right:auto; }
 .adsense-slot.rectangle { min-height:280px; }
 .adsense-slot.banner { width:100%; min-height:100px; }
 
