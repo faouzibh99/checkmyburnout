@@ -496,7 +496,16 @@
         btn.querySelector('.answer-marker').style.borderColor = 'var(--indigo)';
         btn.querySelector('.answer-marker').style.color = '#fff';
         const nb = document.getElementById('nextBtn');
-        if (nb) { nb.disabled = false; nb.style.opacity = '1'; nb.style.pointerEvents = 'auto'; }
+        if (nb) {
+          nb.disabled = false;
+          nb.style.opacity = '1';
+          nb.style.pointerEvents = 'auto';
+          nb.style.background = '';
+          nb.style.color = '';
+          nb.style.border = '';
+          nb.style.cursor = 'pointer';
+          nb.textContent = currentQ < QUESTIONS.length - 1 ? 'Next →' : 'See my results';
+        }
         // Auto-advance after 400ms
         setTimeout(() => advanceQuestion(), 380);
       });
@@ -512,22 +521,24 @@
     if (nextBtn) {
       const hasAnswer = answers[q.id] !== undefined;
       if (index < QUESTIONS.length - 1) {
-        nextBtn.textContent = 'Next →';
+        nextBtn.textContent = hasAnswer ? 'Next →' : 'Select an answer to continue';
         nextBtn.onclick = () => {
           if (answers[q.id] !== undefined) advanceQuestion();
         };
       } else {
-        nextBtn.textContent = 'See my results';
+        nextBtn.textContent = hasAnswer ? 'See my results' : 'Select an answer to continue';
         nextBtn.onclick = () => {
           if (answers[q.id] !== undefined) showResults();
         };
       }
-      // Only show Next as a clickable button once an answer exists
-      // (answering auto-advances anyway — Next is mainly for returning
-      // to a previously-answered question via Back, then moving forward again)
       nextBtn.disabled = !hasAnswer;
-      nextBtn.style.opacity = hasAnswer ? '1' : '0';
+      nextBtn.style.opacity = '1';
       nextBtn.style.pointerEvents = hasAnswer ? 'auto' : 'none';
+      nextBtn.style.background = hasAnswer ? '' : 'transparent';
+      nextBtn.style.color = hasAnswer ? '' : 'var(--text-muted)';
+      nextBtn.style.border = hasAnswer ? '' : '1px dashed var(--border)';
+      nextBtn.style.cursor = hasAnswer ? 'pointer' : 'default';
+      nextBtn.style.boxShadow = 'none';
     }
   }
 
