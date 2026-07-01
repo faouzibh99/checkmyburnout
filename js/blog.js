@@ -51,10 +51,13 @@
     posts.forEach((p, i) => {
       html += cardHtml(p);
       if ((i + 1) % 3 === 0 && i !== posts.length - 1) {
-        html += `<div class="adsense-slot rectangle" data-slot="blog-grid-${i}" data-size="336x280" style="grid-column:span 1;"></div>`;
+        html += `<div class="adsense-slot leaderboard" data-slot="blog-grid-${i}" data-size="728x90" style="grid-column:1/-1;"></div>`;
       }
     });
     el.innerHTML = html;
+    el.querySelectorAll('.adsense-slot').forEach(s => {
+      if (!s.textContent.trim()) s.textContent = `Ad · ${s.dataset.slot || ''} · ${s.dataset.size || ''}`;
+    });
   }
 
   async function renderArticlePage() {
